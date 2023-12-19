@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body_block %}
+    
+<div class=''>
+    <div class="row container" style="margin-bottom:40px;">
+        <div style="padding-top:40px;padding-bottom:30px;" class="col-6 bg-black d-flex justify-center text-center">
+            <h3 class="text-warning">
+                Ditch the dusty dealerships and endless online scrolling. Your dream car awaits, sparkling clean, on <span class="fw-bolder">--[Car Shop]--</span> . Find the perfect match for your life's next adventure – whether it's a sleek sedan for city cruising, a rugged SUV for weekend getaways, or a fuel-efficient hybrid for eco-conscious commutes. Browse thousands of listings, filter by your must-haves, and contact sellers directly. 
+            </h3>
+        </div>
+        <div style="margin-bottom:50px;" class='col-6 d-flex justify-content-center align-items-center'>
+            <img class="h-75 w-75" src={% static 'car-home.jpg' %} alt="">
+        </div>
+    </div>
+    <div style="margin-bottom:20px;" class="filtering">
+        <h3>Filter Here:</h3>
+        {% for brand in brands %}
+            
+                <a href="{% url 'filter_brand' id=brand.pk %}" class="btn btn-warning fs-3 fw-bold me-2">{{brand.name}}</a>
+            
+        {% endfor %}
+        <div class="mt-5">
+          <p class="bg-warning ps-1 pt-2 pb-2 pe-5 d-inline-block fs-3 fw-bold"  style="border-radius:10px;">Total Cars Found:  &nbsp;{{total_car}}</p>  
+        </div>
+    </div>
+    <div class="row" style="margin-top: 50px; margin-bottom:50px;">
+        {% for car in cars %}
+            <div class="col col-lg-3 me-3 mb-3  card  bg-dark" style="width: 18rem;">
+                <img src="{{car.image.url}}" class="card-img-top" style="height:200px;width:auto;" alt="...">
+                <div class="card-body text-warning">
+                    <h3 class="fw-bold">{{car.name}}</h3>
+                    <h4>${{car.price}}</h4>
+                    <h4>{{car.brand_name}}</h4>
+                    <a href="{% url 'details' id=car.pk %}" class="btn btn-warning fs-6 fw-bold">View Details</a>
+                </div>
+            </div>
+        {% endfor %}    
+        
+    </div>
+</div>
+    {% comment %} <h1 style="margin:auto;width:20%;">Add Car</h2>
+    <form method="POST" style="width:50%;margin:auto;">
+        {% csrf_token %}
+        {{form | crispy}}
+        <button class="btn btn-warning" type="submit">Submit</button> 
+    </form> {% endcomment %}
+{% endblock %}

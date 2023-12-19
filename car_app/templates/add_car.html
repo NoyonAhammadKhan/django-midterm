@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+    
+    <h1 style="margin:auto;width:20%;">Add Car</h2>
+    <form method="POST" style="width:50%;margin:auto;" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{car_form | crispy}}
+        <small>Don't have your brand?</small>&nbsp;
+        <a style="width:50%;margin:auto;" href="{% url 'add_brand'  %}" class="text-primary fw-bold text-decoration-none">Add Brand</a>
+        <br/>
+        <button class="btn btn-warning" type="submit">Submit</button> 
+        <br>
+        
+    </form>
+   
+{% endblock %}

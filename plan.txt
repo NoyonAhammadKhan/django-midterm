@@ -1,0 +1,9 @@
+1.make relationship with user and added car -done
+2.Navbar link - done(except menu)-done
+3.logout-done
+4.filter by brand name-done
+5.show profile details-done
+6.autometic add user at the time of add car form submit-done 
+7.work on proper redirects
+**problem
+problem in profile option in navbar-solved 

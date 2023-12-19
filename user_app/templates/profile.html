@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block body_block %}
+
+<div>
+  <div
+    style="
+      width: 400px;
+      height: 150px;
+      border-radius: 10px;
+      border: 5px solid #f8d210;
+    "
+    class="bg-dark"
+  >
+    <h4 class="text-bolder text-warning d-flex align-items-center p-2">
+      user name:&nbsp;{{user_info}}
+    </h4>
+  </div>
+  <button onclick="edit_form()" class="btn btn-warning fw-bolder mt-3">
+    EDIT YOUR PROFILE
+  </button>
+  <br />
+  <a
+    style="margin: auto"
+    href="{% url 'add_car'  %}"
+    class="mt-5 btn btn-warning fw-bolder text-decoration-none"
+    >ADD CAR</a
+  >
+  <form
+    id="edit_form"
+    class="d-none"
+    style="width: 50%; margin: auto"
+    method="post"
+  >
+    <h1>Edit Profile</h1>
+    {% csrf_token %} {{update_form | crispy}}
+
+    <button class="btn btn-warning mb-5">Submit</button>
+  </form>
+</div>
+<div class="h-[30px] w-auto p-3 bg-warning mt-5">
+  <h1 class="fw-bold">Bought Car History</h1>
+</div>
+<div class="container row pt-5">
+  {% for order in orders %}
+  <div class="card col-3 bg-warning me-3" style="width: 18rem">
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+      <img
+        src="{{order.car.image.url}}"
+        style="height: 300px; width: 100%"
+        class="img-fluid"
+      />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{order.car.name}}</h5>
+      <h5 class="card-title">{{order.car.brand_name}}</h5>
+      <h5 class="card-title">{{order.car.price}}</h5>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+<div class="h-[30px] w-auto p-3 bg-warning mt-5">
+  <h1 class="fw-bold">Added Car History</h1>
+</div>
+<div class="container row pt-5">
+  {% for car in added_cars %}
+  <div class="card col-3 bg-warning me-3" style="width: 22rem">
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+      <img
+        src="{{car.image.url}}"
+        style="height: 300px; width: 100%"
+        class="img-fluid"
+      />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{car.name}}</h5>
+      <h5 class="card-title">{{car.brand_name}}</h5>
+      <h5 class="card-title">{{car.price}}</h5>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+<script>
+  function edit_form() {
+    let form = document.getElementById("edit_form");
+    form.classList.remove("d-none");
+  }
+</script>
+{% endblock %}
